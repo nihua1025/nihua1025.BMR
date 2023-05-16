@@ -1,0 +1,43 @@
+<form id="bmrForm">
+  <label for="gender">性别:</label>
+  <select id="gender" name="gender">
+    <option value="male">男性</option>
+    <option value="female">女性</option>
+  </select><br>
+
+  <label for="height">身高 (厘米):</label>
+  <input type="number" id="height" name="height" required><br>
+
+  <label for="weight">体重 (公斤):</label>
+  <input type="number" id="weight" name="weight" required><br>
+
+  <label for="age">年龄:</label>
+  <input type="number" id="age" name="age" required><br>
+
+  <input type="submit" value="计算BMR">
+</form>
+
+<div id="result"></div>
+
+<script>
+  document.getElementById("bmrForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // 防止表单提交刷新页面
+
+    // 获取表单输入的值
+    var gender = document.getElementById("gender").value;
+    var height = parseFloat(document.getElementById("height").value);
+    var weight = parseFloat(document.getElementById("weight").value);
+    var age = parseInt(document.getElementById("age").value);
+
+    // 根据性别使用不同的BMR公式
+    var bmr;
+    if (gender === "male") {
+      bmr = 66 + (13.7 * weight) + (5 * height) - (6.8 * age);
+    } else if (gender === "female") {
+      bmr = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
+    }
+
+    // 显示计算结果
+    document.getElementById("result").innerText = "您的BMR（基础代谢率）为: " + bmr.toFixed(2) + " 千卡/天";
+  });
+</script>
